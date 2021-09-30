@@ -1,5 +1,7 @@
 package th.cd.cdgs.ttd_day01;
 
+import th.cd.cdgs.ttd_day01.exception.InputInvalidException;
+
 public class MyRange {
 
 	private final String input;
@@ -11,5 +13,9 @@ public class MyRange {
 		return input.startsWith("[");
 	}
 	
-	
+	public void validate() {
+		if(!input.startsWith("[")|| !input.startsWith("(") ) {
+			throw new InputInvalidException("input error");
+		}
+	}
 }
