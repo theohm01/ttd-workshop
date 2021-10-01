@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import badcode.RegisterBusiness;
+import badcode.Speaker;
 
 class RegisterBusinessGetFeeTest {
 
@@ -23,8 +24,8 @@ class RegisterBusinessGetFeeTest {
          "10,0",
 	})
 	void testGetFee(int year,int fee) {
-		RegisterBusiness rb = new RegisterBusiness();
-		int actureFee =rb.getFee(year);
+		Speaker s = new Speaker();
+		int actureFee =s.getFee(year);
 		assertEquals(actureFee, fee);
 	}
 

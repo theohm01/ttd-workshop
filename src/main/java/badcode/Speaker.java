@@ -45,7 +45,7 @@ public class Speaker {
     }
 
     public int getRegistrationFee() {
-        return registrationFee;
+        return getFee(getExp());
     }
 
     public void setRegistrationFee(int registrationFee) {
@@ -75,4 +75,19 @@ public class Speaker {
     public void setCertifications(List<String> certifications) {
         this.certifications = certifications;
     }
+    
+    public int getFee(int experienceYear) {
+        int fee = 0;
+        if (experienceYear <= 1) {
+            fee = 500;
+        } else if (experienceYear <= 3) {
+            fee = 250;
+        } else if (experienceYear <= 5) {
+            fee = 100;
+        } else if (experienceYear <= 9) {
+            fee = 50;
+        }
+        return fee;
+    }
+
 }
