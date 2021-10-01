@@ -1,4 +1,4 @@
-package th.cd.cdgs.ttd_day01;
+package th.co.cdgs.ttd_day02;
 
 import static org.junit.jupiter.api.Assertions.*;
 
