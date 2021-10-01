@@ -11,6 +11,8 @@ import badcode.Speaker;
 
 class RegisterBusinessTest {
 
+	private static final String BLANK_STRING = "";
+
 	@Test
 	@DisplayName("case First Name require null")
 	public void case01() {
@@ -28,7 +30,7 @@ class RegisterBusinessTest {
 		RegisterBusiness rb = new RegisterBusiness();
 		Exception e = assertThrows(ArgumentNullException.class, ()->{
 			Speaker s = new Speaker();
-			s.setFirstName("");
+			s.setFirstName(BLANK_STRING);
 			rb.register(null, s);
 			
 		});
@@ -47,6 +49,50 @@ class RegisterBusinessTest {
 		});
 		assertEquals("Last name is required.", e.getMessage());
 		
+	}
+	
+	@Test
+	@DisplayName("case Last Name require with blank")
+	public void case02withBlank() {
+		RegisterBusiness rb = new RegisterBusiness();
+		Exception e = assertThrows(ArgumentNullException.class, ()->{
+			Speaker s = new Speaker();
+			s.setFirstName("test");
+			s.setLastName(BLANK_STRING);
+			rb.register(null, s);
+			
+		});
+		assertEquals("Last name is required.", e.getMessage());
+		
+	}
+	
+	@Test
+	@DisplayName("case Email require with null")
+	public void caseEmailRequire() {
+		RegisterBusiness rb = new RegisterBusiness();
+		Exception e = assertThrows(ArgumentNullException.class, ()->{
+			Speaker s = new Speaker();
+			s.setFirstName("test");
+			s.setLastName("testLastName");
+			rb.register(null, s);
+			
+		});
+		assertEquals("Email is required.", e.getMessage());
+	}
+	
+	@Test
+	@DisplayName("case Email require with BLANK")
+	public void caseEmailRequireWithBlank() {
+		RegisterBusiness rb = new RegisterBusiness();
+		Exception e = assertThrows(ArgumentNullException.class, ()->{
+			Speaker s = new Speaker();
+			s.setFirstName("test");
+			s.setLastName("testLastName");
+			s.setEmail(BLANK_STRING);
+			rb.register(null, s);
+			
+		});
+		assertEquals("Email is required.", e.getMessage());
 	}
 
 }
