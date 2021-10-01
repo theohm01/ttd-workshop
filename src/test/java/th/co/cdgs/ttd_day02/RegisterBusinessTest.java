@@ -6,8 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import badcode.ArgumentNullException;
+import badcode.DomainEmailInvalidException;
 import badcode.RegisterBusiness;
+import badcode.SaveSpeakerException;
 import badcode.Speaker;
+import badcode.SpeakerDoesntMeetRequirementsException;
 
 class RegisterBusinessTest {
 
@@ -94,5 +97,52 @@ class RegisterBusinessTest {
 		});
 		assertEquals("Email is required.", e.getMessage());
 	}
+	
+	@Test
+	@DisplayName("case Email random")
+	public void caseEmailRandomPattern() {
+		RegisterBusiness rb = new RegisterBusiness();
+		Exception e = assertThrows(DomainEmailInvalidException.class, ()->{
+			Speaker s = new Speaker();
+			s.setFirstName("test");
+			s.setLastName("testLastName");
+			s.setEmail("xxxas");
+			rb.register(null, s);
+			
+		});
+		assertNull(e.getMessage());
+	}
+	
+	@Test
+	@DisplayName("case Email random domain")
+	public void caseEmailRandomDomain() {
+		RegisterBusiness rb = new RegisterBusiness();
+		Exception e = assertThrows(SpeakerDoesntMeetRequirementsException.class, ()->{
+			Speaker s = new Speaker();
+			s.setFirstName("test");
+			s.setLastName("testLastName");
+			s.setEmail("xxxas@aaa.com");
+			rb.register(null, s);
+			
+		});
+		assertEquals("Speaker doesn't meet our standard rules.",e.getMessage());
+	}
+	
+	@Test
+	@DisplayName("case Email Known domain")
+	public void caseEmailKnownDomain() {
+		RegisterBusiness rb = new RegisterBusiness();
+		Exception e = assertThrows(SaveSpeakerException.class, ()->{
+			Speaker s = new Speaker();
+			s.setFirstName("test");
+			s.setLastName("testLastName");
+			s.setEmail("xxxas@gmail.com");
+			rb.register(null, s);
+			
+		});
+		assertEquals("Can't save a speaker.",e.getMessage());
+	}
+	
+	
 
 }
