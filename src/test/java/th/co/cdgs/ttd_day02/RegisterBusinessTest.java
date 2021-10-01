@@ -11,6 +11,7 @@ import badcode.RegisterBusiness;
 import badcode.SaveSpeakerException;
 import badcode.Speaker;
 import badcode.SpeakerDoesntMeetRequirementsException;
+import badcode.SpeakerRepository;
 
 class RegisterBusinessTest {
 
@@ -141,6 +142,26 @@ class RegisterBusinessTest {
 			
 		});
 		assertEquals("Can't save a speaker.",e.getMessage());
+	}
+	
+	@Test
+	@DisplayName("case Email Known domain with register")
+	public void caseEmailKnownDomainWithRegister() {
+		RegisterBusiness rb = new RegisterBusiness();
+			Speaker s = new Speaker();
+			s.setFirstName("test");
+			s.setLastName("testLastName");
+			s.setEmail("xxxas@gmail.com");
+			int result = rb.register(new SpeakerRepository() {
+				
+				@Override
+				public Integer saveSpeaker(Speaker speaker) {
+					
+					return 100;
+				}
+			}, s);
+			
+		assertEquals(100,result);
 	}
 	
 	
